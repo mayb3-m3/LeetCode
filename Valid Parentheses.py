@@ -1,21 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        ans = ""
+        ans = []
+        dct = {
+            ')' : '(',
+            '}' : '{',
+            ']' : '['
+        }
         for ch in s:
-            if ch == '(' or ch == '{' or ch == '[':
-                ans += ch
-            elif ans:
-                if ch == ')' and ans[-1] == '(':
-                    ans = ans[:-1]
-                elif ch == '}' and ans[-1] == '{':
-                    ans = ans[:-1]
-                elif ch == ']' and ans[-1] == '[':
-                    ans = ans[:-1]
-                else:   
-                    return False
+            if ch in dct.values():
+                ans.append(ch)
+            elif ans and ans[-1] == dct.get(ch):
+                ans.pop()
             else:
                 return False
-        if ans:
-            return False
-        else:
-            return True
+        return not ans
