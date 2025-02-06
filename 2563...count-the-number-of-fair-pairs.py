@@ -4,7 +4,7 @@ class Solution:
         nums.sort()
         count = 0
         for i in range(len(nums)-1):
-            idx1 = bisect.bisect_left(nums, lower - nums[i])
-            idx2 = bisect.bisect_right(nums, upper - nums[i])
-            count += (max(i+1, idx2) - max(i+1, idx1))
+            idx1 = bisect.bisect_left(nums, lower - nums[i], i + 1)
+            idx2 = bisect.bisect_right(nums, upper - nums[i], i + 1)
+            count += idx2 - idx1
         return count
