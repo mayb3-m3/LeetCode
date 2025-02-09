@@ -1,25 +1,14 @@
 class Solution:
     def surfaceArea(self, grid: List[List[int]]) -> int:
         n = len(grid)
-        area = 2*n*n
+        area = 0
         for i in range(n):
             for j in range(n):
-                if grid[i][j] == 0: # this creates 
-                    area -= 2       # a hole in 3d
-                if i+1 == n:
-                    area += grid[i][j]
-                else:
-                    area += max(0, grid[i][j] - grid[i+1][j])
-                if i-1 == -1:
-                    area += grid[i][j]
-                else:
-                    area += max(0, grid[i][j] - grid[i-1][j])
-                if j+1 == n:
-                    area += grid[i][j]
-                else:
-                    area += max(0, grid[i][j] - grid[i][j+1])
-                if j-1 == -1:
-                    area += grid[i][j]
-                else:
-                    area += max(0, grid[i][j] - grid[i][j-1])
+                if grid[i][j]:
+                    area += 2
+                for r, c in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]:
+                    if 0 <= r < n and 0 <= c < n:
+                        area += max(0, grid[i][j] - grid[r][c])
+                    else:
+                        area += grid[i][j]
         return area
